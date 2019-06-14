@@ -1,6 +1,5 @@
 package DADOS;
 
-import java.util.Arrays;
 
 import NEGOCIO.Usuario.Usuario;
 public class RepositorioUsuario {
@@ -19,6 +18,7 @@ public class RepositorioUsuario {
 		
 	}
 	
+	@SuppressWarnings("unlikely-arg-type")
 	private int procurarIndice(String num) {
 		int i = 0;
 		boolean achou = false;
@@ -62,7 +62,6 @@ public class RepositorioUsuario {
 			
 		}
 	}
-	
 	
 	private void duplicaArrayUsuarios() {
 		if(this.usuarios != null && this.usuarios.length > 0) {

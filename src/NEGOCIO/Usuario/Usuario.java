@@ -12,11 +12,21 @@ public class Usuario {
 	private String descricao;
 	private tipoJogador gamer;
 	
-	public Usuario(String login, String senha, String descricao, int id) {
+	public Usuario(String login, String senha, String descricao, int id, tipoJogador gamer) {
 		this.login = login;
 		this.senha = senha;
 		this.descricao = descricao;
 		this.id = id;
+		this.gamer = gamer;
+	}
+	public tipoJogador getGamer() {
+		return gamer;
+	}
+	public void setGamer(tipoJogador gamer) {
+		this.gamer = gamer;
+	}
+	public void setLogin(String login) {
+		this.login = login;
 	}
 	public void adicionarJogo(Jogos jogoAdicionar) {
 		this.meusJogos.add(jogoAdicionar);

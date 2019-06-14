@@ -2,8 +2,8 @@ package NEGOCIO.Jogos;
 
 public class Esportes extends Jogos {
 	
-	public Esportes(int id, String nome) {
-		super(id, nome , "Um jogo de esporte é um jogo eletrônico de PC ou videogame que simula esportes tradicionais. A maioria dos esportes já foram recriados em um jogo, incluindo futebol, baseball, futebol americano, boxe, wrestling profissional, cricket, golfe, basquete, hockey no gelo, tênis, boliche, rugby e natação. ");
+	public Esportes(int id, String nome,int tipo) {
+		super(id, nome , "Um jogo de esporte é um jogo eletrônico de PC ou videogame que simula esportes tradicionais. A maioria dos esportes já foram recriados em um jogo, incluindo futebol, baseball, futebol americano, boxe, wrestling profissional, cricket, golfe, basquete, hockey no gelo, tênis, boliche, rugby e natação. ",3 );
 	}
 
 }
