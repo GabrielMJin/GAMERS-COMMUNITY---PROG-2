@@ -1,20 +1,26 @@
-package NEGOCIO;
+package NEGOCIO.Jogos;
 
 import java.util.ArrayList;
+
+import NEGOCIO.Usuario.Usuario;
+import NEGOCIO.Usuario.tipoJogador;
 
 abstract public class Jogos {
 	int idJogo;
 	int tipo;
 	String nome;
 	String descricao;
-	tipoJogador gamer;
+
 	ArrayList<String> comentarios = new ArrayList<String>();
 
-	public Jogos(int idJogo,String nome, String descricao,tipoJogador gamer) {
+	public Jogos(int idJogo,String nome, String descricao) {
 		this.idJogo = idJogo;
 		this.nome = nome;
 		this.descricao = descricao;
-		this.gamer = gamer;
+
+	}
+	public void adicionarComentario(Usuario comentador, String comentario) {
+		this.comentarios.add(comentador.getLogin() + " : " + comentario);
 	}
 
 	public int getTipo() {
@@ -57,13 +63,5 @@ abstract public class Jogos {
 		this.descricao = descricao;
 	}
 
-	public tipoJogador getGamer() {
-		return gamer;
-	}
-
-	public void setGamer(tipoJogador gamer) {
-		this.gamer = gamer;
-	}
-	
 	
 }

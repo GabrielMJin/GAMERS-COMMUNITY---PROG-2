@@ -2,7 +2,7 @@ package DADOS;
 
 import java.util.Arrays;
 
-import NEGOCIO.Usuario;
+import NEGOCIO.Usuario.Usuario;
 public class RepositorioUsuario {
 	
 	private Usuario[] usuarios;

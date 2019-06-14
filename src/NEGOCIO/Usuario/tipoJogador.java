@@ -1,4 +1,4 @@
-package NEGOCIO;
+package NEGOCIO.Usuario;
 
 public enum tipoJogador {
 	CASUAL,

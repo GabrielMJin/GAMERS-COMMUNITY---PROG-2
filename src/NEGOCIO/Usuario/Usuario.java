@@ -1,5 +1,7 @@
-package NEGOCIO;
+package NEGOCIO.Usuario;
 import java.util.ArrayList;
+
+import NEGOCIO.Jogos.Jogos;
 
 
 public class Usuario {
@@ -8,6 +10,7 @@ public class Usuario {
 	private String senha;
 	private ArrayList<Jogos> meusJogos = new ArrayList<Jogos>();
 	private String descricao;
+	private tipoJogador gamer;
 	
 	public Usuario(String login, String senha, String descricao, int id) {
 		this.login = login;
