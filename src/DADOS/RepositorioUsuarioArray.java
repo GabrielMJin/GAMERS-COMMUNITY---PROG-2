@@ -2,12 +2,12 @@ package DADOS;
 
 
 import NEGOCIO.Usuario.Usuario;
-public class RepositorioUsuario {
+public class RepositorioUsuarioArray {
 	
 	private Usuario[] usuarios;
 	private int proxima;
 	
-	public RepositorioUsuario(int tamanho) {
+	public RepositorioUsuarioArray(int tamanho) {
 		this.usuarios = new Usuario[tamanho];
 		this.proxima = 0;
 	}
@@ -18,12 +18,11 @@ public class RepositorioUsuario {
 		
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
 	private int procurarIndice(String num) {
 		int i = 0;
 		boolean achou = false;
 		while((!achou)&& (i < this.proxima)) {
-			if(num.equals(this.usuarios[i].getId())) {
+			if(num.equals(this.usuarios[i].getLogin())) {
 				achou = true;
 			} else {
 				i = i + 1;
