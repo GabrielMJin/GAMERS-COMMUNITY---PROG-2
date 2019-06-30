@@ -1,5 +1,7 @@
 package NEGOCIO.Forum;
 
-public enum TopicosEnum {
+public enum TopicosEnum{
 
+    Bug, Duvida;
+  
 }
