@@ -236,6 +236,7 @@ public class RepositorioJogosArray {
 		return existe;
 	}
 	
+	
 	public void remover(String num, int tipo) {
 		int i = this.procurarIndice(num,tipo);
 		if(tipo==1) {

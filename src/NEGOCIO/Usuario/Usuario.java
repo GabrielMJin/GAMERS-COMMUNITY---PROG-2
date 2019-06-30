@@ -1,6 +1,7 @@
 package NEGOCIO.Usuario;
 import java.util.ArrayList;
 
+import DADOS.RepositorioJogosArray;
 import NEGOCIO.Jogos.Jogos;
 
 
@@ -22,6 +23,8 @@ public class Usuario {
 	public tipoJogador getGamer() {
 		return gamer;
 	}
+	
+	
 	public void setGamer(tipoJogador gamer) {
 		this.gamer = gamer;
 	}
