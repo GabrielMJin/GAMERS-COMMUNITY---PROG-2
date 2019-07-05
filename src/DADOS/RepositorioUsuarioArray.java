@@ -31,7 +31,6 @@ public class RepositorioUsuarioArray {
 		return i;
 	}
 	
-	
 	public Usuario procurar(String num) {
 		int i = this.procurarIndice(num);
 		Usuario resultado = null;

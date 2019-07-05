@@ -21,15 +21,17 @@ public class CadastroUsuario {
 	public boolean existe(String numConta) {
 		return this.repositorioUsuario.existe(numConta);
 	}
-	public void descadastrar(String numConta) {
+	public boolean descadastrar(String numConta) {
 		Usuario aux = this.repositorioUsuario.procurar(numConta);
-		
+			boolean a = false;
 		if(aux!=null) {
 			this.repositorioUsuario.remover(numConta);
+			a= true;
 		}
 		else {
 			//conta inexistente
 		}
+		return a;
 	}
 	
 	
