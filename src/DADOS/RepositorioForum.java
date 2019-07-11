@@ -1,6 +1,6 @@
 package DADOS;
 
-import NEGOCIO.Forum.TopicosEnum;
+
 import NEGOCIO.Forum.Pergunta;
 import NEGOCIO.Forum.Respostas;
 import NEGOCIO.Usuario.Usuario;
@@ -45,10 +45,10 @@ public class RepositorioForum {
        }
    }
    
-    public void Responder(int posicao, Pergunta pergunta, String resposta, Usuario usuario, TopicosEnum topico){
+    public void Responder(int posicao, Pergunta pergunta, String resposta, Usuario usuario){
         for(Pergunta aux : ArrPerguntas){
             if(aux.getPosicao() == posicao){
-       Respostas responder = new Respostas(resposta, usuario, pergunta, topico);
+       Respostas responder = new Respostas(resposta, usuario, pergunta);
        ArrResposta.add(responder); 
         }
         
@@ -58,5 +58,6 @@ public class RepositorioForum {
     private int getPergunta() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   
+    
+    
 }

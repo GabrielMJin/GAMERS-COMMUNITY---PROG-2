@@ -2,15 +2,50 @@ package DADOS;
 
 
 import NEGOCIO.Usuario.Usuario;
-public class RepositorioUsuarioArray {
+import java.io.*;
+/*import java.io.Serializable;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;*/
+public class RepositorioUsuarioArray implements Serializable{
 	
 	private Usuario[] usuarios;
 	private int proxima;
 	
-	public RepositorioUsuarioArray(int tamanho) {
+	public RepositorioUsuarioArray (int tamanho) {
+		//lerArquivo();
 		this.usuarios = new Usuario[tamanho];
 		this.proxima = 0;
 	}
+	public void Gravar(RepositorioUsuarioArray b) {
+        try {
+		FileOutputStream arq = new FileOutputStream("pessoas.arq") ;
+		ObjectOutputStream obj = new ObjectOutputStream(arq);
+		obj.writeObject(b);
+		obj.flush();
+		System.out.println("Gravado com sucesso!");
+        }
+        catch(Exception Error) {
+        	System.out.println("Error 404");
+        }
+        
+	}
+	
+	public void Ler(RepositorioUsuarioArray b) {
+		try {
+			FileInputStream arq = new FileInputStream("pessoas.arq");
+			ObjectInputStream obj = new ObjectInputStream(arq);
+			RepositorioUsuarioArray test = (RepositorioUsuarioArray)obj.readObject();
+			System.out.println("Lido com sucesso!");
+		}
+		catch(Exception Error)
+		{
+			System.out.println("Arquivo não encontrado");
+		}
+		
+	}
+	
 	
 	public void cadastrar(Usuario c) {
 		this.usuarios[this.proxima] = c;
@@ -19,6 +54,7 @@ public class RepositorioUsuarioArray {
 	}
 	
 	private int procurarIndice(String num) {
+		//lerArquivo();
 		int i = 0;
 		boolean achou = false;
 		while((!achou)&& (i < this.proxima)) {
@@ -32,6 +68,7 @@ public class RepositorioUsuarioArray {
 	}
 	
 	public Usuario procurar(String num) {
+		//lerArquivo();
 		int i = this.procurarIndice(num);
 		Usuario resultado = null;
 		if(i != this.proxima) {
@@ -41,6 +78,7 @@ public class RepositorioUsuarioArray {
 	}
 	
 	public boolean existe(String numUsuario) {
+		//lerArquivo();
 		boolean existe = false;
 		int indice = this.procurarIndice(numUsuario);
 		if(indice != proxima) {
@@ -50,6 +88,7 @@ public class RepositorioUsuarioArray {
 	}
 
 	public void remover(String num) {
+		//lerArquivo();
 		int i = this.procurarIndice(num);
 		if(i != this.proxima) {
 			this.usuarios[i] = this.usuarios[this.proxima-1];
@@ -59,9 +98,11 @@ public class RepositorioUsuarioArray {
 		else {
 			
 		}
+		//salvarArquivo();
 	}
 	
 	private void duplicaArrayUsuarios() {
+		//lerArquivo();
 		if(this.usuarios != null && this.usuarios.length > 0) {
 			Usuario[] arrayDuplicado = new Usuario[this.usuarios.length * 2];
 			for (int i = 0;i < this.usuarios.length; i++){
@@ -69,7 +110,9 @@ public class RepositorioUsuarioArray {
 			}
 			this.usuarios = arrayDuplicado;
 		}
+		//salvarArquivo();
 		
 	}
+
 	
 }

@@ -6,14 +6,13 @@ import NEGOCIO.Usuario.Usuario;
 public class Pergunta {
     private String pergunta;
     private Usuario usuario;
-    private TopicosEnum topico;
+
     private int posicao;
 
     
-    public Pergunta(String pergunta, Usuario usuario, TopicosEnum topico) {
+    public Pergunta(String pergunta, Usuario usuario) {
         this.pergunta = pergunta;
         this.usuario = usuario;
-        this.topico = topico;
     }
 
     public Pergunta() {

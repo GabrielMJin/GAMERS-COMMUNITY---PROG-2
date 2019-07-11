@@ -79,4 +79,8 @@ public class Usuario {
 		this.descricao = descricao;
 	}
 	
+	public String toString(){
+        return getLogin();
+    }
+	
 }

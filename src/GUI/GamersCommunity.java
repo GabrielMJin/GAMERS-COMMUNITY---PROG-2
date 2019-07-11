@@ -1,25 +1,51 @@
 package GUI;
 
-import java.util.Scanner;
 
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import DADOS.RepositorioForum;
+import NEGOCIO.Forum.Pergunta;
+import NEGOCIO.Forum.Respostas;
 import NEGOCIO.Jogos.Aventura;
 import NEGOCIO.Jogos.CadastroJogos;
+import NEGOCIO.Jogos.Corrida;
+import NEGOCIO.Jogos.Esportes;
 import NEGOCIO.Jogos.Jogos;
+import NEGOCIO.Jogos.Luta;
+import NEGOCIO.Jogos.Online;
+import NEGOCIO.Jogos.Rpg;
+import NEGOCIO.Jogos.Simulador;
+import NEGOCIO.Jogos.Tiro;
 import NEGOCIO.Usuario.CadastroUsuario;
 import NEGOCIO.Usuario.Usuario;
 import NEGOCIO.Usuario.tipoJogador;
+import java.io.*;
 
 public class GamersCommunity {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int idusu = 0;
-		int idJogo = 0;
+		int idJogo = 1;
 		int fim = 0;
+		
+
 		Scanner lerString = new Scanner(System.in);
 		Scanner lerInt = new Scanner(System.in);
 		CadastroUsuario cadastroUsu = new CadastroUsuario();
 		CadastroJogos cadastroJogos = new CadastroJogos();
+        Pergunta pergunta = new Pergunta();
+        Respostas resposta = new Respostas();
+        RepositorioForum acesso = new RepositorioForum();
+        
+        cadastroUsu.getRepositorioUsuario().Ler(cadastroUsu.getRepositorioUsuario());
+        
+
+        
+        
+        
 		int programa = 0;
 		do {
 		
@@ -38,12 +64,12 @@ public class GamersCommunity {
 				String senha = lerString.nextLine();
 				Usuario logado = cadastroUsu.procurar(login);
 				System.out.println(logado.getLogin());
-				if(cadastroUsu.existe(login)) {
+				if(cadastroUsu.existe(login)&& logado.getSenha().equals(senha)) {
 					System.out.println("logado com sucesso!");
 					int log = 0;
 					
 					while(log==0) {
-						System.out.println("Bem Vindo" + logado.getLogin() + "!" );
+						System.out.println("Bem Vindo " + logado.getLogin() + "!" );
 						System.out.println("Sua Descrição: " + logado.getDescricao());
 						System.out.println("Tipo de Jogador" + logado.getGamer());
 						System.out.println();
@@ -58,32 +84,102 @@ public class GamersCommunity {
 						if(logado.getMeusJogos()==null) {
 							System.out.println("Você não tem jogos na biblioteca!");
 							System.out.println("");
-							System.out.println("1 - Voltar");
+							System.out.println("0 - Voltar");
 							log = lerInt.nextInt();
 							
 						}
 						else {
 							System.out.println(logado.getMeusJogos());
 							System.out.println("");
-							System.out.println("1 - Voltar");
+							System.out.println("0 - Voltar");
 							log = lerInt.nextInt();
 						}
 					}
 					//adicionar jogo na biblioteca
 					while(log==2) {
+						System.out.println("Nome do Jogo:");
+						String gameadd = lerString.nextLine();
+						System.out.println("Tipo: 1- Aventura 2- Corrida 3- Esportes 4- Luta 5- Online 6- Rpg 7 - Simulador 8 - Tiro");
+						int tipojuego = lerInt.nextInt();
+						Jogos adicionar = cadastroJogos.procurar(gameadd, tipojuego);
+						logado.adicionarJogo(adicionar);
+						if(logado.getMeusJogos().contains(adicionar)) {
+							System.out.println("Adicionado com sucesso!");
+							log = 0;
+						}
+						else {
+							System.out.println("Não foi possível adicionar tal jogo, provavelmente não existe na nossa biblioteca!");
+							log = 0;
+						}
 						
 					}
 					//acessar Forum
 					while(log==3) {
+                        int controle = 0;
+                        System.out.println("Bem-Vindo ao ForumCommunity");
+                        System.out.println("1 - Perguntar");
+                        System.out.println("2 - Responder");
+                        System.out.println("3 - Listar Forum");
+                        System.out.println("4 - Voltar");
+                        controle = lerInt.nextInt();
+                        if(controle == 1){
+                            System.out.print("Digite sua pergunta: ");
+                            String texto = lerString.nextLine();
+                            pergunta = new Pergunta(texto, logado);   
+                            acesso.RepPergunta(pergunta);
+                            System.out.println("Pergunta efetuada com sucesso...");
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(GamersCommunity.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                        }
+                        
+                        else if(controle == 2){
+                             System.out.println("Perguntas recentes");
+                             acesso.ListarForum();
+                             System.out.print("Selecione uma pergunta: ");
+                             int selecionar = lerInt.nextInt();
+                             acesso.ExibirPergunta(selecionar);
+                             for(Respostas aux : acesso.ExibirRespostas(pergunta)){
+                                 System.out.println(aux);
+                             }
+                             System.out.print("Digite sua resposta: ");                               
+                             String texto = lerString.nextLine();
+                             acesso.Responder(selecionar, pergunta, texto, logado);
+                             System.out.println("Resposta efetuada com sucesso...");
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(GamersCommunity.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                       }
+                        
+                        else if(controle == 3){
+                            acesso.ListarForum();
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(GamersCommunity.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        
+                        else if(controle == 4){
+                            log = 0;
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(GamersCommunity.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+					
 						
 					}
-					
-					
-				}	
+				}
+				
 			}
-	
 			//cadastro
-			
 			while(fim==2){
 	
 				System.out.println("Bem Vindo a área de cadastro!");
@@ -103,6 +199,7 @@ public class GamersCommunity {
 					if(cadastroUsu.existe(login)==false) {
 						cadastroUsu.cadastrar(cadastrarUSU);
 						System.out.println("Usuario cadastrado com sucesso!");
+						cadastroUsu.getRepositorioUsuario().Gravar(cadastroUsu.getRepositorioUsuario());
 						fim=0;
 					}
 					else {
@@ -115,6 +212,7 @@ public class GamersCommunity {
 					if(cadastroUsu.existe(login)==false) {
 						cadastroUsu.cadastrar(cadastrarUSU);
 						System.out.println("Usuario cadastrado com sucesso!");
+						cadastroUsu.getRepositorioUsuario().Gravar(cadastroUsu.getRepositorioUsuario());
 						fim=0;
 					}
 					else {
@@ -127,6 +225,7 @@ public class GamersCommunity {
 					if(cadastroUsu.existe(login)==false) {
 						cadastroUsu.cadastrar(cadastrarUSU);
 						System.out.println("Usuario cadastrado com sucesso!");
+						cadastroUsu.getRepositorioUsuario().Gravar(cadastroUsu.getRepositorioUsuario());
 						fim=0;
 					}
 					else {
@@ -141,12 +240,14 @@ public class GamersCommunity {
 			}	
 			while(fim==3) {
 				System.out.println("Bem vindo a área de ADM");
+				System.out.println("Continuar? 3 - Sim  1 - Não");
+				fim = lerInt.nextInt();
 				System.out.println("Digite seu login:");
 				String login = lerString.nextLine();
 				System.out.println("Digite sua senha");
 				String senha = lerString.nextLine();
 				int adm=0;
-				if(login=="ADM123" && senha == "12345678") {
+				if(login.equals("ADM123") && senha.equals("12345678")) {
 					System.out.println("LOGADO COM SUCESSO!");
 					while(adm==0){
 					System.out.println("Bem vindo MESTRE");
@@ -156,7 +257,7 @@ public class GamersCommunity {
 					adm = lerInt.nextInt();
 					}
 					while(adm==4) {
-						programa = 1;
+						fim = 1;
 					}
 					while(adm==1) {
 						System.out.println("digite nome do jogo que quer deletar:");
@@ -190,7 +291,7 @@ public class GamersCommunity {
 							adm=0;
 						}
 						else if(tipo == 2) {
-							Aventura jogoCadas = new Aventura(idJogo, jogo, tipo);
+							Corrida jogoCadas = new Corrida(idJogo, jogo, tipo);
 							boolean a=cadastroJogos.cadastrar(jogoCadas);
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
@@ -199,7 +300,7 @@ public class GamersCommunity {
 							adm=0;
 						}
 						else if(tipo == 3) {
-							Aventura jogoCadas = new Aventura(idJogo, jogo, tipo);
+							Esportes jogoCadas = new Esportes(idJogo, jogo, tipo);
 							boolean a=cadastroJogos.cadastrar(jogoCadas);
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
@@ -208,7 +309,7 @@ public class GamersCommunity {
 							adm=0;
 						}
 						else if(tipo == 4) {
-							Aventura jogoCadas = new Aventura(idJogo, jogo, tipo);
+							Luta jogoCadas = new Luta(idJogo, jogo, tipo);
 							boolean a=cadastroJogos.cadastrar(jogoCadas);
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
@@ -217,7 +318,7 @@ public class GamersCommunity {
 							adm=0;
 						}
 						else if(tipo == 5) {
-							Aventura jogoCadas = new Aventura(idJogo, jogo, tipo);
+							Online jogoCadas = new Online(idJogo, jogo, tipo);
 							boolean a=cadastroJogos.cadastrar(jogoCadas);
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
@@ -226,7 +327,7 @@ public class GamersCommunity {
 							adm=0;
 						}
 						else if(tipo == 6) {
-							Aventura jogoCadas = new Aventura(idJogo, jogo, tipo);
+							Rpg jogoCadas = new Rpg(idJogo, jogo, tipo);
 							boolean a=cadastroJogos.cadastrar(jogoCadas);
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
@@ -235,7 +336,7 @@ public class GamersCommunity {
 							adm=0;
 						}
 						else if(tipo == 7) {
-							Aventura jogoCadas = new Aventura(idJogo, jogo, tipo);
+							Simulador jogoCadas = new Simulador(idJogo, jogo, tipo);
 							boolean a=cadastroJogos.cadastrar(jogoCadas);
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
@@ -244,7 +345,7 @@ public class GamersCommunity {
 							adm=0;
 						}
 						else if(tipo == 8) {
-							Aventura jogoCadas = new Aventura(idJogo, jogo, tipo);
+							Tiro jogoCadas = new Tiro(idJogo, jogo, tipo);
 							boolean a=cadastroJogos.cadastrar(jogoCadas);
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
@@ -274,11 +375,14 @@ public class GamersCommunity {
 							adm=0;
 						}
 					}
-				}
-				
+				}	
 			}
-		
+			while(fim==4) {
+				fim=5;
+				programa = 1;
+			}
 		}while(programa==0);
+		cadastroUsu.getRepositorioUsuario().Gravar(cadastroUsu.getRepositorioUsuario());
 	}
-
+	
 }
