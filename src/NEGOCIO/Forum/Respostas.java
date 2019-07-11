@@ -1,16 +1,16 @@
 package NEGOCIO.Forum;
 
+import java.io.Serializable;
+
 import NEGOCIO.Usuario.Usuario;
 
-public class Respostas /*extends Pergunta*/{
+public class Respostas implements Serializable{
     
     private String resposta;
     private Usuario usuario;
     private Pergunta pergunta;
 
     public Respostas(String resposta, Usuario usuario, Pergunta pergunta) {
-        
-        //super(pergunta, null, topico);
          this.resposta = resposta;
          this.usuario = usuario;
          this.pergunta = pergunta;

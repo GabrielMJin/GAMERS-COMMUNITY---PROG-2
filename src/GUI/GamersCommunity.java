@@ -24,7 +24,7 @@ import NEGOCIO.Usuario.Usuario;
 import NEGOCIO.Usuario.tipoJogador;
 import java.io.*;
 
-public class GamersCommunity {
+public class GamersCommunity implements Serializable{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -41,8 +41,7 @@ public class GamersCommunity {
         Pergunta pergunta = new Pergunta();
         Respostas resposta = new Respostas();
         RepositorioForum acesso = new RepositorioForum();
-        
-        cadastroUsu.getRepositorioUsuario().Ler(cadastroUsu.getRepositorioUsuario());
+        acesso.Ler();
         
 
         
@@ -53,17 +52,18 @@ public class GamersCommunity {
 		
 			System.out.println("Bem Vindo ao GamersCommunity");
 			do {
-				System.out.println("Menu Principal\n1 - Login\n2 - Cadastro\n3 - Login ADM\n4 - Fechar o programa");
+				System.out.println("Menu Principal\n1 - Login\n2 - Cadastro\n3 - Login ADM\n4 - Fechar o programa\n5 - Ver Jogos");
 				fim = lerInt.nextInt();
 				
 			}while(fim==0);
 			//login
 			while(fim==1) {
-				System.out.println("Tela de Login");
+				fim=lerInt.nextInt();
 				System.out.println("Digite seu Login:");
 				String login = lerString.nextLine();
 				System.out.println("Digite Sua Senha:");
 				String senha = lerString.nextLine();
+				Usuario Logado = null;
 				Usuario logado = cadastroUsu.procurar(login);
 				System.out.println(logado.getLogin());
 				if(cadastroUsu.existe(login)&& logado.getSenha().equals(senha)) {
@@ -201,7 +201,7 @@ public class GamersCommunity {
 					if(cadastroUsu.existe(login)==false) {
 						cadastroUsu.cadastrar(cadastrarUSU);
 						System.out.println("Usuario cadastrado com sucesso!");
-						cadastroUsu.getRepositorioUsuario().Gravar(cadastroUsu.getRepositorioUsuario());
+						cadastroUsu.getRepositorioUsuario().Gravar();
 						fim=0;
 					}
 					else {
@@ -214,7 +214,7 @@ public class GamersCommunity {
 					if(cadastroUsu.existe(login)==false) {
 						cadastroUsu.cadastrar(cadastrarUSU);
 						System.out.println("Usuario cadastrado com sucesso!");
-						cadastroUsu.getRepositorioUsuario().Gravar(cadastroUsu.getRepositorioUsuario());
+						cadastroUsu.getRepositorioUsuario().Gravar();
 						fim=0;
 					}
 					else {
@@ -227,7 +227,7 @@ public class GamersCommunity {
 					if(cadastroUsu.existe(login)==false) {
 						cadastroUsu.cadastrar(cadastrarUSU);
 						System.out.println("Usuario cadastrado com sucesso!");
-						cadastroUsu.getRepositorioUsuario().Gravar(cadastroUsu.getRepositorioUsuario());
+						cadastroUsu.getRepositorioUsuario().Gravar();
 						fim=0;
 					}
 					else {
@@ -270,12 +270,12 @@ public class GamersCommunity {
 						if(a==true) {
 							System.out.println("Jogo removido com sucesso!");
 							idJogo--;
-							adm=1;
+							adm=0;
 							
 						}
 						else {
 							System.out.println("Jogo inexistente no repositório!");
-							adm=1;
+							adm=0;
 						}
 					}
 					while(adm==2) {
@@ -289,6 +289,7 @@ public class GamersCommunity {
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
 								idJogo++;
+								cadastroJogos.getRepositorioJogos().Gravar();
 							}
 							adm=0;
 						}
@@ -298,6 +299,7 @@ public class GamersCommunity {
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
 								idJogo++;
+								cadastroJogos.getRepositorioJogos().Gravar();
 							}
 							adm=0;
 						}
@@ -307,6 +309,7 @@ public class GamersCommunity {
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
 								idJogo++;
+								cadastroJogos.getRepositorioJogos().Gravar();
 							}
 							adm=0;
 						}
@@ -316,6 +319,7 @@ public class GamersCommunity {
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
 								idJogo++;
+								cadastroJogos.getRepositorioJogos().Gravar();
 							}
 							adm=0;
 						}
@@ -325,6 +329,7 @@ public class GamersCommunity {
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
 								idJogo++;
+								cadastroJogos.getRepositorioJogos().Gravar();
 							}
 							adm=0;
 						}
@@ -334,6 +339,7 @@ public class GamersCommunity {
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
 								idJogo++;
+								cadastroJogos.getRepositorioJogos().Gravar();
 							}
 							adm=0;
 						}
@@ -343,6 +349,7 @@ public class GamersCommunity {
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
 								idJogo++;
+								cadastroJogos.getRepositorioJogos().Gravar();
 							}
 							adm=0;
 						}
@@ -352,6 +359,7 @@ public class GamersCommunity {
 							if(a==true) {
 								System.out.println("jogo cadastrado com sucesso!");
 								idJogo++;
+								cadastroJogos.getRepositorioJogos().Gravar();
 							}
 							adm=0;
 						}
@@ -383,8 +391,58 @@ public class GamersCommunity {
 				fim=5;
 				programa = 1;
 			}
+			while(fim==5) {
+				System.out.println("Digite o nome do jogo existente");
+				String jogoExistente = lerString.nextLine();
+				System.out.println("Digite o tipo do jogo");
+				int tipoJoogo = lerInt.nextInt();
+				
+				if(cadastroJogos.procurar(jogoExistente, tipoJoogo) instanceof Aventura) {
+				   System.out.println(cadastroJogos.procurar(jogoExistente, tipoJoogo).getDescricao());
+				}
+				
+				if(cadastroJogos.procurar(jogoExistente, tipoJoogo) instanceof Corrida) {
+					
+					   System.out.println(cadastroJogos.procurar(jogoExistente, tipoJoogo).getDescricao());
+					   
+					}
+				
+				if(cadastroJogos.procurar(jogoExistente, tipoJoogo) instanceof Esportes) {
+					
+					   System.out.println(cadastroJogos.procurar(jogoExistente, tipoJoogo).getDescricao());
+					}
+				
+				if(cadastroJogos.procurar(jogoExistente, tipoJoogo) instanceof Luta) {
+					
+					   System.out.println(cadastroJogos.procurar(jogoExistente, tipoJoogo).getDescricao());
+					}
+				
+				if(cadastroJogos.procurar(jogoExistente, tipoJoogo) instanceof Online) {
+					
+					   System.out.println(cadastroJogos.procurar(jogoExistente, tipoJoogo).getDescricao());
+					   
+					}
+				if(cadastroJogos.procurar(jogoExistente, tipoJoogo) instanceof Rpg) {
+					
+					   System.out.println(cadastroJogos.procurar(jogoExistente, tipoJoogo).getDescricao());
+					   
+					}
+				
+				if(cadastroJogos.procurar(jogoExistente, tipoJoogo) instanceof Simulador) {
+					
+					   System.out.println(cadastroJogos.procurar(jogoExistente, tipoJoogo).getDescricao());
+					   
+					}
+				
+				if(cadastroJogos.procurar(jogoExistente, tipoJoogo) instanceof Tiro) {
+					
+					   System.out.println(cadastroJogos.procurar(jogoExistente, tipoJoogo).getDescricao());
+					   
+					}
+				
+				fim=0;
+			}
 		}while(programa==0);
-		cadastroUsu.getRepositorioUsuario().Gravar(cadastroUsu.getRepositorioUsuario());
 	}
 	
 }

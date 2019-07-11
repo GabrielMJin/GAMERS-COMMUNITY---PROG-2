@@ -9,16 +9,19 @@ import NEGOCIO.Jogos.Online;
 import NEGOCIO.Jogos.Rpg;
 import NEGOCIO.Jogos.Simulador;
 import NEGOCIO.Jogos.Tiro;
-import java.io.FileInputStream;
+import NEGOCIO.Usuario.Usuario;
+
+/*import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.Serializable;*/
+import java.io.*;
 import java.util.ArrayList;
 
 
 
-public class RepositorioJogosArray {
+public class RepositorioJogosArray implements Serializable {
 	//private RepositorioJogosArray jogo;
 	private Jogos[] jogosAventura;
 	private Jogos[] jogosCorrida;
@@ -58,6 +61,47 @@ public class RepositorioJogosArray {
 		this.proximaSimulador = 0;
 		this.proximaTiro = 0;
 	}
+	
+	 public void Gravar() {
+	        try {
+				FileOutputStream arq = new FileOutputStream("Jogos.dat") ;
+				ObjectOutputStream obj = new ObjectOutputStream(arq);
+				obj.writeObject(jogosAventura);
+				obj.writeObject(jogosCorrida);
+				obj.writeObject(jogosEsportes);
+				obj.writeObject(jogosLuta);
+				obj.writeObject(jogosOnline);
+				obj.writeObject(jogosRpg);
+				obj.writeObject(jogosSimulador);
+				obj.writeObject(jogosTiro);
+				arq.flush();
+				arq.close();
+				obj.flush();
+				obj.close();
+				System.out.println("Gravado com sucesso!");
+	        }
+	        catch(Exception e) {
+//	        	System.out.println("Error 404");
+	        	e.printStackTrace();
+	        }
+	        
+		}
+	    
+	    public void Ler() {
+	        try {
+				FileInputStream arq = new FileInputStream("Jogos.dat") ;
+				ObjectInputStream obj = new ObjectInputStream(arq);
+			    jogosAventura = (Aventura[])obj.readObject();			
+				arq.close();			
+				obj.close();
+				System.out.println("Jogos lido!");
+	        }
+	        catch(Exception e) {
+//	        	System.out.println("Error 404");
+	        	e.printStackTrace();
+	        }
+	        
+		}
 	
 	public void cadastrarJogo(Jogos a) {
 		//lerArquivoJogos();

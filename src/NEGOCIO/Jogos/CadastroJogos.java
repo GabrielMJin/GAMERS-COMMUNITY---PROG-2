@@ -1,11 +1,15 @@
 package NEGOCIO.Jogos;
 
 import DADOS.RepositorioJogosArray;
+import java.io.*;
 
-
-public class CadastroJogos {
+public class CadastroJogos implements Serializable{
 	private RepositorioJogosArray repositorioJogos;
 	
+	public RepositorioJogosArray getRepositorioJogos() {
+		return repositorioJogos;
+	}
+
 	public CadastroJogos() {
 		this.repositorioJogos = new RepositorioJogosArray(500);
 	}

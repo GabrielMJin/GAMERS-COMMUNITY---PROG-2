@@ -1,10 +1,11 @@
 package NEGOCIO.Jogos;
 
 import java.util.ArrayList;
+import java.io.*;
 
 import NEGOCIO.Usuario.Usuario;
 
-abstract public class Jogos {
+abstract public class Jogos implements Serializable {
 	private int idJogo;
 	private int tipo;
 	private String nome;

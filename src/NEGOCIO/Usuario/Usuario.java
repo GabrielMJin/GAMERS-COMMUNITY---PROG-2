@@ -1,11 +1,12 @@
 package NEGOCIO.Usuario;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import DADOS.RepositorioJogosArray;
 import NEGOCIO.Jogos.Jogos;
 
 
-public class Usuario {
+public class Usuario implements Serializable{
 	int id;
 	private String login;
 	private String senha;

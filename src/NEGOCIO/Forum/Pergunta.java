@@ -1,9 +1,11 @@
 package NEGOCIO.Forum;
 
 
+import java.io.Serializable;
+
 import NEGOCIO.Usuario.Usuario;
 
-public class Pergunta {
+public class Pergunta implements Serializable{
     private String pergunta;
     private Usuario usuario;
 

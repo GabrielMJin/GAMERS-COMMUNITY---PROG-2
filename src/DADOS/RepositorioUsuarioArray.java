@@ -1,8 +1,10 @@
 package DADOS;
 
 
+import NEGOCIO.Forum.Pergunta;
 import NEGOCIO.Usuario.Usuario;
 import java.io.*;
+import java.util.ArrayList;
 /*import java.io.Serializable;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,7 +20,41 @@ public class RepositorioUsuarioArray implements Serializable{
 		this.usuarios = new Usuario[tamanho];
 		this.proxima = 0;
 	}
-	public void Gravar(RepositorioUsuarioArray b) {
+    public void Gravar() {
+        try {
+			FileOutputStream arq = new FileOutputStream("Usuarios.dat") ;
+			ObjectOutputStream obj = new ObjectOutputStream(arq);
+			obj.writeObject(usuarios);
+			arq.flush();
+			arq.close();
+			obj.flush();
+			obj.close();
+			System.out.println("Gravado com sucesso!");
+        }
+        catch(Exception e) {
+//        	System.out.println("Error 404");
+        	e.printStackTrace();
+        }
+        
+	}
+    
+    public void Ler() {
+        try {
+			FileInputStream arq = new FileInputStream("Usuarios.dat") ;
+			ObjectInputStream obj = new ObjectInputStream(arq);
+		    usuarios = (Usuario[])obj.readObject();			
+			arq.close();			
+			obj.close();
+			System.out.println("Usuários lido!");
+        }
+        catch(Exception e) {
+//        	System.out.println("Error 404");
+        	e.printStackTrace();
+        }
+        
+	}
+	
+	/*public void Gravar(RepositorioUsuarioArray b) {
         try {
 		FileOutputStream arq = new FileOutputStream("pessoas.arq") ;
 		ObjectOutputStream obj = new ObjectOutputStream(arq);
@@ -44,7 +80,7 @@ public class RepositorioUsuarioArray implements Serializable{
 			System.out.println("Arquivo não encontrado");
 		}
 		
-	}
+	}*/
 	
 	
 	public void cadastrar(Usuario c) {
