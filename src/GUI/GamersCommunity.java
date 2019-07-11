@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import DADOS.RepositorioForum;
+import Excecoes.VetorVazioException;
 import NEGOCIO.Forum.Pergunta;
 import NEGOCIO.Forum.Respostas;
 import NEGOCIO.Jogos.Aventura;
@@ -32,6 +33,7 @@ public class GamersCommunity {
 		int fim = 0;
 		
 
+		
 		Scanner lerString = new Scanner(System.in);
 		Scanner lerInt = new Scanner(System.in);
 		CadastroUsuario cadastroUsu = new CadastroUsuario();
